@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestión de tareas{% endblock %}
+
+{% block body %}
+    <h1>Gestión de tareas</h1>
+
+    <a href="{{ path('app_tarea_new') }}" class="btn btn-success new-task-btn">Nueva tarea</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Horas</th>
+                <th>Prioridad</th>
+                <th>Completado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tarea in tareas %}
+            <tr>
+                <td>{{ tarea.descripcion }}</td>
+                <td>{{ tarea.horas }}</td>
+                <td>{{ tarea.prioridad }}</td>
+                <td>
+                    {% if tarea.completado %}
+                        <input type="checkbox" checked disabled>
+                    {% else %}
+                        <input type="checkbox" disabled>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_tarea_edit', {'id': tarea.id}) }}" class="btn btn-primary btn-sm">Modificar</a>
+                    <a href="{{ path('app_tarea_delete', {'id': tarea.id}) }}" class="btn btn-danger btn-sm">Eliminar</a>
+
+
+                </td>
+        {% else %}
+            <tr>
+                <td colspan="6">Aún no has creado ninguna tarea!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+
+
+{% endblock %}
+
+

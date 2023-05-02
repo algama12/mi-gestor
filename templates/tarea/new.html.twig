@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nueva Tarea{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="mt-4 mb-4">Crear nueva Tarea</h1>
+
+            <div class="card">
+                <div class="card-body">
+                    {{ include('tarea/_form.html.twig') }}
+                </div>
+            </div>
+
+            <a class="btn btn-secondary mt-3" href="{{ path('app_tarea_index') }}">Volver al listado</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
