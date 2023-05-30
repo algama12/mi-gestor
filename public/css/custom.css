@@ -1,5 +1,5 @@
 body {
-    background-color: #ffffff; 
+    background-color: #87eaee6c; 
     margin: 5px;
 }
 
@@ -18,4 +18,8 @@ h1 {
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 1.5rem; 
+}
+
+button.btn.btn-danger {
+    margin-top: 3px;
 }
