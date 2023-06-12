@@ -1,5 +1,5 @@
 body {
-    background-color: #87eaee6c; 
+    background-color: #ecf5f56c; 
     margin: 5px;
 }
 
@@ -22,4 +22,20 @@ h1 {
 
 button.btn.btn-danger {
     margin-top: 3px;
+}
+
+.tarea_Descripcion {
+    margin-left: 3;
+}
+
+.tarea_Horas{
+    margin-left: 3;
+}
+
+.tarea_Prioridad{
+    margin-left: 3;
+}
+
+.tarea_Completado{
+    margin-left: 3;
 }
