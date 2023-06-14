@@ -3,7 +3,26 @@
 {% block title %}Gestión de tareas{% endblock %}
 
 {% block body %}
-    <h1>Gestión de tareas</h1>
+<div id="wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="mainNav">
+      <a class="navbar-brand" href="index.html">Gestion de tareas</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <!-- your side navigation menu items go here -->
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <!-- your top navigation menu items go here -->
+        </ul>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <!-- your main content goes here -->
+            <h1>Gestión de tareas</h1>
 
     <a href="{{ path('app_tarea_new') }}" class="btn btn-success new-task-btn">Nueva tarea</a>
 
@@ -43,6 +62,71 @@
         {% endfor %}
         </tbody>
     </table>
+    <h2>INFORMES</h2>
+    <div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+  const alta = {{ alta|default(0) }};
+  const media = {{ media|default(0) }};
+  const baja = {{ baja|default(0) }};
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Alta', 'Media', 'Baja'],
+      datasets: [{
+        label: '# de Prioridad',
+        data: [alta, media, baja],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>&copy; Your Company <?php echo date('Y'); ?></small>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="../startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../startbootstrap-sb-admin-2-gh-pages/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <!-- your page level JS plugins go here -->
+
+  <!-- Custom scripts for all pages-->
+  <script src="../startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>
+
+  <!-- Demo scripts for this page-->
+  <!-- your demo JS scripts go here -->
+
 
     
 
