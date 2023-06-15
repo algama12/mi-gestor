@@ -85,7 +85,7 @@ class TareaController extends AbstractController
         return $this->redirectToRoute('app_tarea_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/cantidad-por-prioridad', name: 'app_cantidad_por_prioridad')]
+    #[Route('/', name: 'app_cantidad_por_prioridad')]
     public function cantidadPorPrioridadAction(EntityManagerInterface $entityManager): Response
     {
         $repository = $entityManager->getRepository(Elemento::class);
@@ -110,6 +110,8 @@ class TareaController extends AbstractController
             ->setParameter('baja', 'baja')
             ->getQuery()
             ->getSingleScalarResult();
+
+        dump($alta, $media, $baja);
 
         return $this->render('index.html.twig', [
             'alta' => $alta,
