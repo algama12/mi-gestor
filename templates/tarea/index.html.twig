@@ -70,9 +70,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const alta = {{ alta|default(0) }};
-  const media = {{ media|default(0) }};
-  const baja = {{ baja|default(0) }};
+  const priorities = JSON.parse('{{ priorities|json_encode|raw }}');
+  const taskCounts = JSON.parse('{{ taskCounts|json_encode|raw }}');
 </script>
 
 <script>
@@ -81,10 +80,10 @@
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Alta', 'Media', 'Baja'],
+      labels: priorities,
       datasets: [{
         label: '# de Prioridad',
-        data: [alta, media, baja],
+        data: taskCounts,
         borderWidth: 1
       }]
     },

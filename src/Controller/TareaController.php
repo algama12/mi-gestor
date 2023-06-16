@@ -18,15 +18,32 @@ class TareaController extends AbstractController
     #[Route('/', name: 'app_tarea_index', methods: ['GET'])]
     public function index(TareaRepository $tareaRepository, Request $request): Response
     {
+        // Obtener el recuento de tareas por prioridad
+        $counts = $tareaRepository->createQueryBuilder('t')
+        ->select('t.Prioridad, COUNT(t.id) as count')
+        ->groupBy('t.Prioridad')
+        ->getQuery()
+        ->getResult();
+
+        // Preparar los datos para la gráfica de Chart.js
+        $priorities = [];
+        $taskCounts = [];
+        foreach ($counts as $count) {
+            $priorities[] = $count['Prioridad'];
+            $taskCounts[] = $count['count'];
+        }
+
         $response = $this->render('tarea/index.html.twig', [
             'tareas' => $tareaRepository->findAll(),
+            'priorities' => $priorities,
+            'taskCounts' => $taskCounts,
         ]);
-    
+
         // Asegurarse de que la página no se almacene en caché
         $response->setPrivate();
         $response->setMaxAge(0);
         $response->headers->addCacheControlDirective('must-revalidate', true);
-    
+
         return $response;
     }
 
@@ -85,40 +102,6 @@ class TareaController extends AbstractController
         return $this->redirectToRoute('app_tarea_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/', name: 'app_cantidad_por_prioridad')]
-    public function cantidadPorPrioridadAction(EntityManagerInterface $entityManager): Response
-    {
-        $repository = $entityManager->getRepository(Elemento::class);
-
-        $alta = $repository->createQueryBuilder('e')
-            ->select('COUNT(e)')
-            ->where('e.prioridad = :alta')
-            ->setParameter('alta', 'alta')
-            ->getQuery()
-            ->getSingleScalarResult();
-
-        $media = $repository->createQueryBuilder('e')
-            ->select('COUNT(e)')
-            ->where('e.prioridad = :media')
-            ->setParameter('media', 'media')
-            ->getQuery()
-            ->getSingleScalarResult();
-
-        $baja = $repository->createQueryBuilder('e')
-            ->select('COUNT(e)')
-            ->where('e.prioridad = :baja')
-            ->setParameter('baja', 'baja')
-            ->getQuery()
-            ->getSingleScalarResult();
-
-        dump($alta, $media, $baja);
-
-        return $this->render('index.html.twig', [
-            'alta' => $alta,
-            'media' => $media,
-            'baja' => $baja,
-        ]);
-    }
     
 
 
