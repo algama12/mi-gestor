@@ -18,14 +18,13 @@ class TareaController extends AbstractController
     #[Route('/', name: 'app_tarea_index', methods: ['GET'])]
     public function index(TareaRepository $tareaRepository, Request $request): Response
     {
-        // Obtener el recuento de tareas por prioridad
+        
         $counts = $tareaRepository->createQueryBuilder('t')
         ->select('t.Prioridad, COUNT(t.id) as count')
         ->groupBy('t.Prioridad')
         ->getQuery()
         ->getResult();
 
-        // Preparar los datos para la gráfica de Chart.js
         $priorities = [];
         $taskCounts = [];
         foreach ($counts as $count) {
@@ -39,7 +38,6 @@ class TareaController extends AbstractController
             'taskCounts' => $taskCounts,
         ]);
 
-        // Asegurarse de que la página no se almacene en caché
         $response->setPrivate();
         $response->setMaxAge(0);
         $response->headers->addCacheControlDirective('must-revalidate', true);
